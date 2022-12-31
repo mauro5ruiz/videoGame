@@ -81,8 +81,8 @@ maps.push(`
 `);
 maps.push(`
   I-X---X-XX
-  X--XX--XXX
-  --XXXX-XXX
+  X---X--XXX
+  -X-XXX-XXX
   -XXXXX-XXX
   -XX-X--XXX
   --X---XXXX

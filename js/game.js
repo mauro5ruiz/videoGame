@@ -239,18 +239,24 @@ function movePlayer(){
         --lifes;
         
         if(lifes > 0){
-            reanudarNivel();
-            mostrarVidas();
+            explosiones();
+            inhabilitarBotones();
+            setTimeout(volverJuego, 1000);
         }
-        else{         
+        else{      
             btnJugarNuevamente.style.display = "flex";  
             btns.style.display = "none";
             clearInterval(interval);
             mostrarVidas();
         }
     }
+        game.fillText(emojis['BALON'], playerPosition.x + 8, playerPosition.y + -2);
+}
 
-    game.fillText(emojis['BALON'], playerPosition.x + 8, playerPosition.y + -2);
+function volverJuego(){
+    habilitarBotones();
+    reanudarNivel();
+    mostrarVidas();
 }
 
 function reanudarNivel(){
@@ -271,6 +277,52 @@ function reanudarJuego(){
     startGame();
 }
 
+function explosiones(){   
+    xGame = window.innerHeight;
+    yGame = window.innerWidth;
+
+
+    const map = maps[leven];
+
+    const mapsRow = map.trim().split('\n');
+    const mapsColum = mapsRow.map(column => column.trim().split(''));
+
+    game.clearRect(0,0,size,size);
+    enemyColisions = [];
+    mapsColum.forEach((row, indiceRow) => {
+        row.forEach((column, indiceColumn) => {
+            const positionX = sizeEmoji * (indiceColumn + 1);
+            const positionY = sizeEmoji * (indiceRow + 1);
+            
+            game.fillText(emojis['P'], positionX + 8, positionY + -2);
+            
+        });
+    });
+
+    movePlayer();
+}
+
+function habilitarBotones(){
+    botonArriba.disabled = false;
+    botonArriba.style.opacity = 1;
+    botonAbajo.disabled = false;
+    botonAbajo.style.opacity = 1;
+    botonDerecha.disabled = false;
+    botonDerecha.style.opacity = 1;
+    botonIzquierda.disabled = false;
+    botonIzquierda.style.opacity = 1;
+}
+
+function inhabilitarBotones(){
+    botonArriba.disabled = true;
+    botonArriba.style.opacity = 0.7;
+    botonAbajo.disabled = true;
+    botonAbajo.style.opacity = 0.7;
+    botonDerecha.disabled = true;
+    botonDerecha.style.opacity = 0.7;
+    botonIzquierda.disabled = true;
+    botonIzquierda.style.opacity = 0.7;
+}
 
 game.fillRect(0,0,100,100);
 game.clearRect(50,50,50,50);
