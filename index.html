@@ -8,15 +8,33 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="game-container">
+    <div id ="game-container" class="game-container">
         <canvas id="game">
 
         </canvas>
-        <div class="btns">
+        <div id="botones" class="btns mostrar">
             <button id="up">Arriba</button>
             <button id="left">Izquierda</button>
             <button id="right">Derecha</button>
             <button id="down">Abajo</button>
+        </div>
+        <div id="botonJuegarNuevamente" class="btns ocultar">
+            <button id="jugarNuevamente">Jugar de Nuevo</button>
+        </div>
+        <div class="message">
+            <p>Vidas: <span id="lifesCount"></span></p>
+            <p>Tiempo: <span id="timePlayer"></span></p>
+            <p>Récord: <span id="timeRecord"></span></p>
+            <p id="mensaje"></p>
+        </div>
+    </div>
+    <div id="finJuego" class="ocultar">
+        
+        <div id="botones" class="btns">
+            <button id="up">E. MARTINEZ</button>
+            <button id="left">C. ROMERO</button>
+            <button id="right">A. DI MARÍA</button>
+            <button id="down">L. MESSI</button>
         </div>
         <div class="message">
             <p>Vidas: <span id="lifesCount"></span></p>

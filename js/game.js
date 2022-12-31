@@ -8,6 +8,10 @@ const mensajeVidas = document.querySelector('#lifesCount');
 const tiempoJugado = document.querySelector('#timePlayer');
 const recordDeJuego = document.querySelector('#timeRecord');
 const mensajeFinJuego = document.querySelector('#mensaje');
+const gameFin = document.querySelector('#finJuego');
+const gameContenedor = document.querySelector('#botones');
+const btnJugarNuevamente = document.querySelector('#botonJuegarNuevamente');
+const btns = document.querySelector('.btns');
 var timeStart;
 var timePlayer;
 var interval;
@@ -36,16 +40,18 @@ botonIzquierda.addEventListener('click', moveLeft);
 botonDerecha.addEventListener('click', moveRight);
 botonAbajo.addEventListener('click', moveDown);
 document.addEventListener('keydown', moveToKeys);
+btnJugarNuevamente.addEventListener('click', reanudarJuego);
 
 var size;
 
 window.addEventListener('load', sizePlay);
 window.addEventListener('resize', sizePlay);
 
+
 function startGame(){   
+
     xGame = window.innerHeight;
     yGame = window.innerWidth;
-    
 
     sizeEmoji = size / 10.3;
     game.font = sizeEmoji + 'px Verdana';
@@ -102,7 +108,8 @@ mostrarVidas();
 function congratulations(){
     clearInterval(interval);
     comprobarSiEsNuevoRecord();
-    alert("Felicidades, ganó todo el juego");
+    btnJugarNuevamente.classList.remove('ocultar');
+    gameContenedor.style.display = "none";
 }
 
 var mensaje = "";
@@ -123,6 +130,7 @@ function comprobarSiEsNuevoRecord(){
         localStorage.setItem('Récord', tiempo);  
         mensaje = "Felicidades. Ahora trata de superar tu propio récord";
     }
+    btnJugarNuevamente.style.display = "flex";
     mensajeFinJuego.innerHTML = mensaje;
 }
 
@@ -210,6 +218,7 @@ function moveDown(){
 }
 
 function movePlayer(){
+    btnJugarNuevamente.style.display = "none";
     const giftCollisionX = playerPosition.x.toFixed(3) == positionVictory.x.toFixed(3);
     const giftCollisionY = playerPosition.y.toFixed(3) == positionVictory.y.toFixed(3);
     const giftCollision = giftCollisionX && giftCollisionY;
@@ -228,14 +237,15 @@ function movePlayer(){
     
     if(colision){
         --lifes;
+        
         if(lifes > 0){
             reanudarNivel();
             mostrarVidas();
         }
-        else{
-            alert("Perdiste");
-            
-            reanudarJuego();
+        else{         
+            btnJugarNuevamente.style.display = "flex";  
+            btns.style.display = "none";
+            clearInterval(interval);
             mostrarVidas();
         }
     }
@@ -250,11 +260,14 @@ function reanudarNivel(){
 }
 
 function reanudarJuego(){
+    gameContenedor.style.display = "flex";
+    btnJugarNuevamente.style.display = "none";
     leven = 0;
     lifes = 3;
     timeStart = undefined;
     playerPosition.x = undefined;
     playerPosition.y = undefined;
+    location.reload();
     startGame();
 }
 
